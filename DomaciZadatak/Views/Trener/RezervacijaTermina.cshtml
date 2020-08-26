@@ -1,0 +1,56 @@
+﻿@model DomaciZadatak.Models.Rezervisan_TerminBO
+
+@{
+    ViewBag.Title = "RezervacijaTermina";
+}
+
+<h2 style="color:white;">Rezervacija termina</h2>
+
+
+@using (Html.BeginForm("RezervacijaTerminaPost", "Trener", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumVreme, htmlAttributes: new { @class = "control-label col-md-2", @style="color:white;" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DatumVreme, new { type = "datetime-local" })
+                @Html.ValidationMessageFor(model => model.DatumVreme, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" style="color:white;">Usluga :</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Aktivnosti", new SelectList(ViewBag.Aktivnosti, "AktivnostID", "Naziv"), htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" style="color:white;">Sala: </label>
+            <div class="col-md-10">
+                @Html.DropDownList("Sale", new SelectList(ViewBag.Sale, "SalaID", "Kapacitet"), htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Rezervisi" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

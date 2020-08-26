@@ -1,0 +1,53 @@
+﻿@model DomaciZadatak.Models.UplataBO
+
+@{
+    ViewBag.Title = "Uplata";
+}
+
+
+
+@using (Html.BeginForm("IndexPost","Uplata",FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Uplata</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+           <label class="control-label col-md-2">Usluge</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Aktivnosti", new SelectList(ViewBag.Usluge, "AktivnostID", "Naziv"), htmlAttributes: new { @class = "form-control", onchange="OnAktivnostChanged(this.value)"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cene, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("Cena", new { htmlAttributes = new { @class = "form-control", @id="Cenaaktivnosti" } })
+                @Html.ValidationMessageFor(model => model.Cene, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Uplati" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function OnAktivnostChanged(aktivnostid) {   // POVEZIVANJE ACTIONRESULT i javaskript funkcije, ActionResult vraca podatke o ceni return Json
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("GetCena","Uplata")',
+            data: { id: aktivnostid },
+            dataType: "json",
+            success: function (data) {
+                $("#Cenaaktivnosti").val(data);
+            }
+            });
+    }
+
+</script>

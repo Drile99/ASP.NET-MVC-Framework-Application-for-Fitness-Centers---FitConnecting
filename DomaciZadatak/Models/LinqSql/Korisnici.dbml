@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Teretana" Class="KorisniciDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-DBN7H94\SQLEXPRESS;Initial Catalog=Teretana;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TeretanaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Aktivnost" Member="Aktivnosts">
+    <Type Name="Aktivnost">
+      <Column Name="AktivnostID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Naziv" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cena" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Aktivnost_Drzi" Member="Drzis" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Drzi" />
+      <Association Name="Aktivnost_Grupna" Member="Grupna" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Grupna" Cardinality="One" />
+      <Association Name="Aktivnost_Individualna" Member="Individualna" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Individualna" Cardinality="One" />
+      <Association Name="Aktivnost_Uplata" Member="Uplatas" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Uplata" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Zaposleni" Member="Zaposlenis">
+    <Type Name="Zaposleni">
+      <Column Name="ZaposleniID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ime" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Prezime" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DatRodj" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Pozicija" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Zaposleni_Recepcionar" Member="Recepcionar" ThisKey="ZaposleniID" OtherKey="ZaposleniID" Type="Recepcionar" Cardinality="One" />
+      <Association Name="Zaposleni_Sistemski_Administrator" Member="Sistemski_Administrator" ThisKey="ZaposleniID" OtherKey="ZapsoleniID" Type="Sistemski_Administrator" Cardinality="One" />
+      <Association Name="Zaposleni_Trener" Member="Trener" ThisKey="ZaposleniID" OtherKey="ZaposleniID" Type="Trener" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Drzi" Member="Drzis">
+    <Type Name="Drzi">
+      <Column Name="AktivnostID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="JMBG" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Drzi_Rezervisan_Termin" Member="Rezervisan_Termins" ThisKey="AktivnostID,JMBG" OtherKey="AktivnostID,JMBG" Type="Rezervisan_Termin" />
+      <Association Name="Aktivnost_Drzi" Member="Aktivnost" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Aktivnost" IsForeignKey="true" />
+      <Association Name="Korisnik_Drzi" Member="Korisnik" ThisKey="JMBG" OtherKey="JMBG" Type="Korisnik" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grupna" Member="Grupnas">
+    <Type Name="Grupna">
+      <Column Name="AktivnostID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Aktivnost_Grupna" Member="Aktivnost" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Aktivnost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Individualna" Member="Individualnas">
+    <Type Name="Individualna">
+      <Column Name="AktivnostID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Aktivnost_Individualna" Member="Aktivnost" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Aktivnost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Kalendar" Member="Kalendars">
+    <Type Name="Kalendar">
+      <Column Name="JMBG" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TerminID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Korisnik_Kalendar" Member="Korisnik" ThisKey="JMBG" OtherKey="JMBG" Type="Korisnik" IsForeignKey="true" />
+      <Association Name="Rezervisan_Termin_Kalendar" Member="Rezervisan_Termin" ThisKey="TerminID" OtherKey="TerminID" Type="Rezervisan_Termin" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Korisnik" Member="Korisniks">
+    <Type Name="Korisnik">
+      <Column Name="JMBG" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ime" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Prezime" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DatumRodj" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Lozinka" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Korisnik_Drzi" Member="Drzis" ThisKey="JMBG" OtherKey="JMBG" Type="Drzi" />
+      <Association Name="Korisnik_Kalendar" Member="Kalendars" ThisKey="JMBG" OtherKey="JMBG" Type="Kalendar" />
+      <Association Name="Korisnik_Rezervisan_Termin" Member="Rezervisan_Termins" ThisKey="JMBG" OtherKey="JMBG" Type="Rezervisan_Termin" />
+      <Association Name="Korisnik_Uplata" Member="Uplatas" ThisKey="JMBG" OtherKey="JMBG" Type="Uplata" />
+      <Association Name="Korisnik_UserRole" Member="UserRoles" ThisKey="JMBG" OtherKey="UserID" Type="UserRole" />
+      <Association Name="Korisnik_ZahtevOprema" Member="ZahtevOpremas" ThisKey="JMBG" OtherKey="JMBG" Type="ZahtevOprema" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recepcionar" Member="Recepcionars">
+    <Type Name="Recepcionar">
+      <Column Name="ZaposleniID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Zaposleni_Recepcionar" Member="Zaposleni" ThisKey="ZaposleniID" OtherKey="ZaposleniID" Type="Zaposleni" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rezervisan_Termin" Member="Rezervisan_Termins">
+    <Type Name="Rezervisan_Termin">
+      <Column Name="TerminID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SalaID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DatumVreme" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="JMBG" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AktivnostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Rezervisan_Termin_Kalendar" Member="Kalendars" ThisKey="TerminID" OtherKey="TerminID" Type="Kalendar" />
+      <Association Name="Drzi_Rezervisan_Termin" Member="Drzi" ThisKey="AktivnostID,JMBG" OtherKey="AktivnostID,JMBG" Type="Drzi" IsForeignKey="true" />
+      <Association Name="Korisnik_Rezervisan_Termin" Member="Korisnik" ThisKey="JMBG" OtherKey="JMBG" Type="Korisnik" IsForeignKey="true" />
+      <Association Name="Sala_Rezervisan_Termin" Member="Sala" ThisKey="SalaID" OtherKey="SalaID" Type="Sala" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Roles">
+    <Type Name="Role">
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Naziv" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Role_UserRole" Member="UserRoles" ThisKey="RoleID" OtherKey="RoleID" Type="UserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sala" Member="Salas">
+    <Type Name="Sala">
+      <Column Name="SalaID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Kapacitet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Sala_Rezervisan_Termin" Member="Rezervisan_Termins" ThisKey="SalaID" OtherKey="SalaID" Type="Rezervisan_Termin" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sistemski_Administrator" Member="Sistemski_Administrators">
+    <Type Name="Sistemski_Administrator">
+      <Column Name="ZapsoleniID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Zaposleni_Sistemski_Administrator" Member="Zaposleni" ThisKey="ZapsoleniID" OtherKey="ZaposleniID" Type="Zaposleni" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Trener" Member="Treners">
+    <Type Name="Trener">
+      <Column Name="ZaposleniID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Zaposleni_Trener" Member="Zaposleni" ThisKey="ZaposleniID" OtherKey="ZaposleniID" Type="Zaposleni" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Uplata" Member="Uplatas">
+    <Type Name="Uplata">
+      <Column Name="IDUsluge" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cene" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Datum" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="JMBG" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AktivnostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Aktivnost_Uplata" Member="Aktivnost" ThisKey="AktivnostID" OtherKey="AktivnostID" Type="Aktivnost" IsForeignKey="true" />
+      <Association Name="Korisnik_Uplata" Member="Korisnik" ThisKey="JMBG" OtherKey="JMBG" Type="Korisnik" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRole" Member="UserRoles">
+    <Type Name="UserRole">
+      <Column Name="UserRole" Member="UserRole1" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Korisnik_UserRole" Member="Korisnik" ThisKey="UserID" OtherKey="JMBG" Type="Korisnik" IsForeignKey="true" />
+      <Association Name="Role_UserRole" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZahtevOprema" Member="ZahtevOpremas">
+    <Type Name="ZahtevOprema">
+      <Column Name="OpremaID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Kolicina" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JMBG" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Korisnik_ZahtevOprema" Member="Korisnik" ThisKey="JMBG" OtherKey="JMBG" Type="Korisnik" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

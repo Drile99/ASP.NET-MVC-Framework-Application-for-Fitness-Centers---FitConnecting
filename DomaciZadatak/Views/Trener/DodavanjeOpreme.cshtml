@@ -1,0 +1,105 @@
+﻿@model DomaciZadatak.Models.ZahtevOpremaBO
+
+@{
+    ViewBag.Title = "DodavanjeOpreme";
+}
+
+    <style type="text/css">
+        .myTable {
+            background-color: #aab2bf;
+            border-collapse: collapse;
+        }
+
+            .myTable th {
+                background-color: #45494f;
+                color: white;
+                width: 20%;
+            }
+
+            .myTable td, .myTable th {
+                padding: 5px;
+                border: 1px solid #45494f;
+            }
+    </style>
+
+<h2 style="color:white;">Dodavanje opreme</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="myTable">
+        <thead class="thead-dark">
+            <tr>
+                <th>Šifra opreme</th>
+                <th>Naziv opreme</th>
+                <th>Cena opreme</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>111</th>
+                <td>Benč klupa</td>
+                <td>45.000,00 dinara</td>
+            </tr>
+            <tr>
+                <th>222</th>
+                <td>Olimpijska šipka</td>
+                <td>15.000,00 dinara</td>
+            </tr>
+            <tr>
+                <th>333</th>
+                <td>Lat mašina</td>
+                <td>35.000,00 dinara</td>
+            </tr>
+            <tr>
+                <th>444</th>
+                <td>Smit mašina</td>
+                <td>40.000,00 dinara</td>
+            </tr>
+            <tr>
+                <th>555</th>
+                <td>Tegovi 7.5kg-35kg</td>
+                <td>2.500,00 dinara</td>
+            </tr>
+            <tr>
+                <th>666</th>
+                <td>Traka za trčanje</td>
+                <td>25.000,00 dinara</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpremaID, htmlAttributes: new { @class = "control-label col-md-2", @style="color:white;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OpremaID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OpremaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Kolicina, htmlAttributes: new { @class = "control-label col-md-2", @style="color:white;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Kolicina, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Kolicina, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Posalji zahtev" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

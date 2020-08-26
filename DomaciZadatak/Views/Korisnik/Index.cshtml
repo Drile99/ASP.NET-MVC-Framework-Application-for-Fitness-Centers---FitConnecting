@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DomaciZadatak.Models.KorisnikBO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            @foreach(var korisnik in Model)
+            {
+                <a class="list-group-item" onclick='OnListItemClick(this,@Html.Raw(Json.Encode(korisnik)));'>
+                    <h5>
+                        @Html.DisplayFor(model => korisnik.Ime) @Html.DisplayFor(model => korisnik.Prezime)
+                    </h5>
+                </a>
+
+            }
+        </div>
+    </div>
+    <div class="col-md-3 form-group" style="visibility:hidden" id="detaljiStudenta">
+        <label class="control-label">Detalji korisnika:</label>
+        <p id="DetaljiKorisnikaTekst"></p>
+        <input type="button" class="btn" value="Azuriraj" id="editButton" />
+        <input type="button" class="btn" value="Obrisi" id="deleteButton" />
+    </div>
+</div>
+
+<script>
+    function OnListItemClick(html, model) {
+        $('a.list-group-item.active').removeClass('active');
+        $(html).addClass('active');
+        document.getElementById('detaljiStudenta').style.visibility = "visible";
+        document.getElementById('DetaljiKorisnikaTekst').innerHTML = "JMBG: " + model.JMBG + "<br>Datum Rodjenja: " + model.DatumRodj + "<br>Email: " + model.Email + "<br>Lozinka: " + model.Lozinka;
+    }
+</script>

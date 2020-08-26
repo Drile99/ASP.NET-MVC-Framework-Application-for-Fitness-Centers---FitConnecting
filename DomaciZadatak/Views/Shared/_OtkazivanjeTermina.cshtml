@@ -1,0 +1,56 @@
+﻿@model DomaciZadatak.Models.Rezervisan_TerminBO
+
+<h3 style="color:white;">Jeste li sigurni da hocete da otkazete termin?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TerminID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TerminID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumVreme)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVreme)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AktivnostID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AktivnostID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JMBG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JMBG)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Otkazi","BrisanjeTermina","Trener",new { id=Model.TerminID}, null)
+        </div>
+    }
+</div>

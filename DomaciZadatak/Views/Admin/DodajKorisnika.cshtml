@@ -1,0 +1,133 @@
+﻿@model DomaciZadatak.Models.KorisnikBO
+
+@{
+    ViewBag.Title = "DodajKorisnika";
+}
+
+
+<style>
+    .containermoj {
+        margin: 0 auto;
+        width: 500px;
+        height: 800px;
+        padding: 16px;
+        background-color: white;
+        opacity: 0.9;
+        align-content: center;
+    }
+
+    /* Full-width input fields */
+    input[type=text], input[type=password], input[type=date] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+    }
+
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+    /* Set a style for the submit button */
+    .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+    }
+
+        .btn:hover {
+            opacity: 1;
+        }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="containermoj">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.JMBG, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.JMBG, new { htmlAttributes = new { @type = "text", @placeholder = "Unesite JMBG" } })<br />
+            @Html.ValidationMessageFor(model => model.JMBG, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @type = "text", @placeholder = "Unesite ime" } })<br />
+            @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Prezime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @type = "text", @placeholder = "Unesite prezime" } })<br />
+            @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DatumRodj, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.DatumRodj, new { type = "date" })<br />
+            @Html.ValidationMessageFor(model => model.DatumRodj, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "text", @placeholder = "Unesite Email" } })<br />
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Lozinka, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Lozinka, new { htmlAttributes = new { @type = "password", @placeholder = "Unesite lozinku" } })<br />
+            @Html.ValidationMessageFor(model => model.Lozinka, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @placeholder = "Potvrdite lozinku" } })<br />
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Rola, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Rola, new { htmlAttributes = new { @type = "text", @placeholder = "Unesite Rolu(Admin/Korisnik/Trener)" } })<br />
+            @Html.ValidationMessageFor(model => model.Rola, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Dodaj korisnika" class="btn" />
+        </div>
+    </div>
+</div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

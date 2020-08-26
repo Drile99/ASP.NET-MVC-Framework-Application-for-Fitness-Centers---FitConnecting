@@ -1,0 +1,52 @@
+﻿@model DomaciZadatak.Models.Rezervisan_TerminBO
+
+@{
+    ViewBag.Title = "OtkazivanjeTermina";
+}
+
+<h2 style="color:white;">Otkazivanje termina</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2" style="color:white;">Izberite termin za otkazivanje :</label>
+            <div class="col-md-10">
+
+                @Html.DropDownList("Termini", new SelectList(ViewBag.Termini, "TerminID", "DatumVreme"), htmlAttributes: new { @class = "form-control", onchange = "OnSelectTermin(this.value)" })
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+    <div id="termini">
+        @*@{
+                Html.RenderAction("GetKontakeByPreduzece","Preduzeca");
+            }*@
+
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    function OnSelectTermin(terminid) {
+        $.ajax({
+            url: '@Url.Action("OtkazivanjeTerminaId","Trener")',
+            data: { id: terminid },
+            success: function (result) {
+                $('#termini').html(result);
+            }
+            });
+    }
+</script>
